@@ -28,11 +28,19 @@ fi
 echo -e "Nettoyage ... \n"
 
 echo -e $(tput setaf 2)"Effacement des fichiers .com ...\n"$(tput setaf 7)
-rm *.com
+for fil in `ls -l *.com`; 
+do
+  if [ -f "$fil" ];then
+    rm $fil
+  fi
+done
 sleep 2
-
 echo -e $(tput setaf 2)"Effacement des fichiers .txt ...\n"$(tput setaf 7)
-rm *.txt
+for fil in `ls -ls *.txt`; do
+  if [ -f "$fil" ];then
+    rm -f $fil
+  fi
+done
 sleep 2
 
 exit 0

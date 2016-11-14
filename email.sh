@@ -19,7 +19,7 @@ clear
 
 RED='\033[0;31m'
 NC='\033[0m'
-NB_FICHIERS=1000
+NB_FICHIERS=10
 DIR_EMAIL=$HOME/dev/email
 
 echo "=========================="
@@ -33,14 +33,31 @@ echo "=========================="
 #echo "Donnez la taille du domaine :"
 #read taille_domain
 
-# Premier argument du script correspond à la taille du prénom
-taille_prenom=$1
+cond=true
+while [ "$cond" == true ]
+do
+	if [ "$#" -ne 3 ]; then
+		echo "Vous devez entrer 3 arguments !"
+		
+		echo "Donnez le premier argument : "
+		read taille_prenom
+		echo "Donnez le deuxieme argument : "
+		read taille_nom
+		echo "Donnez le nom de domaine : "
+		read taille_domain
+		cond=false
+	else
+		cond=false
+		# Premier argument du script correspond à la taille du prénom
+		taille_prenom=$1
 
-# Premier argument du script correspond à la taille du nom
-taille_nom=$2
+		# Premier argument du script correspond à la taille du nom
+		taille_nom=$2
 
-# Premier argument du script correspond à la taille du domaine
-taille_domain=$3
+		# Premier argument du script correspond à la taille du domaine
+		taille_domain=$3
+	fi
+done
 
 if [ -d "$DIR_EMAIL" ]
   then
@@ -124,6 +141,7 @@ do
 		echo "Bye."
 		bool=false
 	elif [ "$response" == "q" ] || [ "$response" == "Q" ]; then
+		clear
 		echo "Bye."
 		exit 0
 	else
