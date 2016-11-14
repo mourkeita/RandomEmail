@@ -50,7 +50,7 @@ else
   cd $DIR_EMAIL
 fi
 
-for i in {1..1000}
+for i in {1..10}
   do
 
   	# Génère un nom aléatoirement
@@ -69,13 +69,13 @@ for i in {1..1000}
   	if [[ -e $nom_fichier ]]; then
 
   	  # Attends une seconde avant d'afficher le résultat du test
-  	  sleep 1
+  	  #sleep 1
 
   	  # Si le fichier existe il dit que 
   	  echo -e ${RED}"Erreur : "${NC} "le fichier " $nom_fichier " existe déjà.\n"
   	else
-  	  echo -e "==> Création du fichier $(tput setaf 2)$i $(tput setaf7) " $nom_fichier
-  	  sleep 1
+  	  echo -e "==> Création du fichier $(tput setaf 2)$i $(tput setaf 7) " $nom_fichier
+  	  #ysleep 1
   	  touch $DIR_EMAIL/$nom_fichier
 
   	  if [ -f $nom_fichier ]; then
@@ -101,5 +101,35 @@ else
   echo -e "Erreur : Le nombre de fichiers ne correspond pas.\n"
   echo "Il manque un certain nombre."
 fi
+
+echo $(tput setaf 2)
+echo "============================================================"
+echo "=========              SUITE DU SCRIPT             ========="
+echo "============================================================"
+echo $(tput setaf 7)
+
+bool=true
+while [ "$bool" == true ]
+
+echo -e "\nVoulez vous voir la liste des fichiers y/N ? q pour quitter.\n"
+read response
+
+do
+	if [ "$response" == "y" ] || [ "$response" == "Y" ]; then
+		echo "Vous avez choisi Oui "
+		ls -1 $DIR_EMAIL | grep .com
+		bool=false
+	elif [ "$response" == "n" ] || [ "$response" == "N" ]; then
+		echo "Vous avez choisi Non "
+		echo "Bye."
+		bool=false
+	elif [ "$response" == "q" ] || [ "$response" == "Q" ]; then
+		echo "Bye."
+		exit 0
+	else
+		echo "Vous devez répondre y/Y ou n/N ou q/Q!"
+
+	fi
+done
 
 exit 0
